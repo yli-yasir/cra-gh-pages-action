@@ -36,4 +36,4 @@ on:
 
     
 ## Why isn't working correctly anymore in my application?
-Use HashRouter instead of BrowserRouter. See [this article](https://www.freecodecamp.org/news/deploy-a-react-app-to-github-pages/).
+Use `HashRouter` instead of `BrowserRouter`. See [this article](https://www.freecodecamp.org/news/deploy-a-react-app-to-github-pages/).
