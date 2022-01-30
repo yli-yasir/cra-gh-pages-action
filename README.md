@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# CRA GitHub Pages Action
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This workflow (`.github/workflows/gh-pages.yml`) file uses the [`actions-gh-pages`](https://github.com/peaceiris/actions-gh-pages) action and its contents are adapted from their example section for CRA applications.
 
-## Available Scripts
+## Differences
+* Changed the output folder to `./build` to make it suitable for CRA applications.
+* Explicitly exposed the `CI` environment variable to allow for easier changes.
+* Changed `runs-on` to `ubuntu-latest`.
+* Changed `node-version` to `16`.
+* Changed the target branch to `master`.
 
-In the project directory, you can run:
+## How can I use this?
+1. Copy the `.github` folder found in this repo to the root of your project.
+2. Adjust the `.github/workflows/gh-pages.yml` file as necessary. You might want to change the target branch (The branch you want to automatically deploy from) to `main` instead of `master`.
 
-### `npm start`
+```diff
+on:
+  push:
+    branches:
+-      - master
++      - main
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```diff
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+-       if: ${{ github.ref == 'refs/heads/master' }}
++       if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+```
+3. Add the `homepage` field to your `package.json` file at the root of your project. See the `package.json` file at the root of this repo for a full example. Usually the homepage is in the following format `https://<your gh username>.github.io/<your github repo name>` (e.g., `https://yli-yasir.github.io/cra-gh-pages-action`).
+4. Push to the target branch. The action should start automatically and once it's completed a `gh-pages` branch should be created automatically for you on github with the build results.
+5. Enable GitHub Pages from the settings section of your GitHub repo and set its branch to `gh-pages`. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    
+## Why isn't working correctly anymore in my application?
+Use HashRouter instead of BrowserRouter. See [this article](https://www.freecodecamp.org/news/deploy-a-react-app-to-github-pages/).
