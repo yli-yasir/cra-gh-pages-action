@@ -1,4 +1,4 @@
-# CRA GitHub Pages Action
+# CRA GitHub Pages Workflow
 
 This workflow (`.github/workflows/gh-pages.yml`) file uses the [`actions-gh-pages`](https://github.com/peaceiris/actions-gh-pages) action and its contents are adapted from their example section for CRA applications.
 
@@ -35,5 +35,17 @@ on:
 5. Enable GitHub Pages from the settings section of your GitHub repo and set its branch to `gh-pages`. 
 
     
+## How can I build my app regardless of "problems" in my code (Bypass CI) ?
+Set the `CI` environment variable in `gh-pages.yml` to `false`.
+
+```diff
+      - run: npm ci
+      - run: npm run build
+        env:
+-         CI: true
++         CI: false
+
+```
+
 ## Why isn't working correctly anymore in my application?
 Use `HashRouter` instead of `BrowserRouter`. See [this article](https://www.freecodecamp.org/news/deploy-a-react-app-to-github-pages/).
