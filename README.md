@@ -11,6 +11,7 @@ This workflow (`.github/workflows/gh-pages.yml`) file uses the [`actions-gh-page
 
 ## How can I use this?
 1. Copy the `.github` folder found in this repo to the root of your project.
+
 2. Adjust the `.github/workflows/gh-pages.yml` file as necessary. You might want to change the target branch (The branch you want to automatically deploy from) to `main` instead of `master`.
 
 ```diff
@@ -30,8 +31,11 @@ on:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
 ```
+
 3. Add the `homepage` field to your `package.json` file at the root of your project. See the `package.json` file at the root of this repo for a full example. Usually the homepage is in the following format `https://<your gh username>.github.io/<your github repo name>` (e.g., `https://yli-yasir.github.io/cra-gh-pages-action`).
+
 4. Push to the target branch. The action should start automatically and once it's completed a `gh-pages` branch should be created automatically for you on github with the build results.
+
 5. Enable GitHub Pages from the settings section of your GitHub repo and set its branch to `gh-pages`. 
 
     
